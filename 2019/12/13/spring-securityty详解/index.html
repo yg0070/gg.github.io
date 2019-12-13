@@ -6,7 +6,7 @@
   <meta name="author" content="Dong Yuanxin" />
   
   
-  <title>Hexo</title>
+  <title>spring securityty详解 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -42,7 +42,7 @@
     welcome: {"enable":false,"interval":30},
     start_time: "2018-02-10",
     passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
-    is_post: false,
+    is_post: true,
     lock: false,
     author: "Dong Yuanxin",
     share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
@@ -160,156 +160,115 @@
 </nav>
 <div id="site-process"></div>
     <main>
-      <div class="home">
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-12-13
+    </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    spring securityty详解
+  </h1>
   
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-12-13
-            </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/12/13/spring-securityty%E8%AF%A6%E8%A7%A3/">spring securityty详解</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/12/13/spring-securityty%E8%AF%A6%E8%A7%A3/">
-            READ MORE >>>
-          </a>
-          
-        </div>
-        
-      </div>
-    </div>
+  <article class="passage-article">
+    <h5 id="1-security与oauth2的关系"><a href="#1-security与oauth2的关系" class="headerlink" title="1. security与oauth2的关系"></a>1. security与oauth2的关系</h5><p><code>security</code>是一个安全访问控制解决方案的框架,对访问访问权限进行控制,包括了用户认证-鉴权<code>(Authentication)</code>和用户授权<code>(Authorization)</code>两个部分.用户认证就是验证用户”是谁”,是否是此系统的合法用户.通常使用用户名密码来完成.授权发生在鉴权后,是鉴定用户”是否可以”执行某个操作.</p>
+<h5 id="2-spring-security主要类详解"><a href="#2-spring-security主要类详解" class="headerlink" title="2. spring security主要类详解"></a>2. spring security主要类详解</h5><p><code>spring security</code>主要分为两大块 , <code>security</code>为主的授权,鉴权;<code>security</code>实现的<code>OAuth2</code>协议的第三方应用授权.</p>
+<p><code>security</code>的最主要的类</p>
+<table>
+<thead>
+<tr>
+<th align="center">类名</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>AbstractAuthenticationProcessingFilter</code></td>
+<td align="center">根拦截器 所有请求都会先进这个拦截器</td>
+</tr>
+<tr>
+<td align="center"><code>ExceptionTranslationFilter</code></td>
+<td align="center">异常拦截器</td>
+</tr>
+<tr>
+<td align="center"><code>AbstractAuthenticationProcessingFilter</code></td>
+<td align="center">认证拦截器父类</td>
+</tr>
+<tr>
+<td align="center"><code>UsernamePasswordAuthenticationFilter</code></td>
+<td align="center">默认的用户名密码认证拦截器</td>
+</tr>
+<tr>
+<td align="center"><code>ProviderManager</code></td>
+<td align="center">管理所有认证方法</td>
+</tr>
+<tr>
+<td align="center"><code>AuthenticationProvider</code></td>
+<td align="center">认证方法的父类</td>
+</tr>
+</tbody></table>
+<p> <code>AbstractAuthenticationProcessingFilter</code>类负责认证, 即登录, 内部调用<code>ProviderManager</code>,<code>ProviderManager</code>根据配置决定调用哪个<code>AuthenticationProvider</code></p>
+<p><code>OAuth2</code>的主要类</p>
+<table>
+<thead>
+<tr>
+<th align="center">类名</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>AuthorizationEndpoint</code></td>
+<td align="center">oauth/authorize方法入口</td>
+</tr>
+<tr>
+<td align="center"><code>TokenEndpoint</code></td>
+<td align="center">oauth/token方法入口</td>
+</tr>
+<tr>
+<td align="center"><code>CompositeTokenGranter</code></td>
+<td align="center">遍历各个认证模式</td>
+</tr>
+<tr>
+<td align="center"><code>AbstractTokenGranter</code></td>
+<td align="center">验证认证模式与调用</td>
+</tr>
+<tr>
+<td align="center"><code>ResourceOwnerPasswordTokenGranter</code></td>
+<td align="center">password认证模式类</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-security与oauth2的关系"><span class="toc-text">1. security与oauth2的关系</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-spring-security主要类详解"><span class="toc-text">2. spring security主要类详解</span></a></li></ol>
+  </div>
+</aside>
   
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-12-13
-            </span>
-            
-              <span>
-                | <a href="/categories/%E5%B7%A5%E5%85%B7/"><i class="fa fa-bookmark"></i>工具</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/12/13/hexo%E5%91%BD%E4%BB%A4/">hexo命令</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/12/13/hexo%E5%91%BD%E4%BB%A4/">
-            READ MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/hexo/"><i class="fa fa-tags"></i>hexo</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-12-05
-            </span>
-            
-              <span>
-                | <a href="/categories/%E5%B7%A5%E5%85%B7/"><i class="fa fa-bookmark"></i>工具</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/12/05/git/">git</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/12/05/git/">
-            READ MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/git/"><i class="fa fa-tags"></i>git</a>
-             
-              <a href="/tags/%E4%BB%A3%E7%A0%81/"><i class="fa fa-tags"></i>代码</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-11-26
-            </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/11/26/hello-world/">Hello World</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/11/26/hello-world/">
-            READ MORE >>>
-          </a>
-          
-        </div>
-        
-      </div>
-    </div>
   
 </div>
+
     </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
     
     <div class="site-footer-wrapper">
   <footer class="site-footer">
@@ -420,16 +379,16 @@
     <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
+    <a href="/2019/12/13/hexo%E5%91%BD%E4%BB%A4/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
   <div class="bottom-bar-right">
-    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false" id="site-toc-show-btn">
+    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="true" id="site-toc-show-btn">
       <i class="fa fa-bars"></i>
     </a>
     
-      <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
+      <a href="#site-comment" data-enable="true">
         <i class="fa fa-commenting"></i>
       </a>
     
