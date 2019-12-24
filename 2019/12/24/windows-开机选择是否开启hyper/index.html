@@ -6,12 +6,12 @@
   <meta name="author" content="Dong Yuanxin" />
   
   
-  <title>归档: 2019/11 | Hexo</title>
+  <title>windows 开机选择是否开启hyper | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Hexo, Theme-AD" />
+    <meta name="keywords" content="windows,windows,工具," />
   
 
   
@@ -42,7 +42,7 @@
     welcome: {"enable":false,"interval":30},
     start_time: "2018-02-10",
     passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
-    is_post: false,
+    is_post: true,
     lock: false,
     author: "Dong Yuanxin",
     share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
@@ -160,19 +160,65 @@
 </nav>
 <div id="site-process"></div>
     <main>
-      <div class="timeline">
-  <h2 class="timeline-title">归档: 5篇</h2>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-12-24
+    </span>
+    
+      <span>
+        | <a href="/categories/windows/"><i class="fa fa-bookmark"></i>windows</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    windows 开机选择是否开启hyper
+  </h1>
   
+  <article class="passage-article">
+    <p>Windows 10中hyper虚拟化与VMware无法共存, 不得已采用一种折中方法, 相当于双系统, 但不需要重新装系统, 只需要配置一下就可以, 然后在开机的时候选择是否需要用hyper</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /copy &#123;default&#125; /d &quot;Windows 10 Without Hyper-V&quot; </span><br><span class="line"></span><br><span class="line"># 执行完第一条命令会得到一串id, 把id替换到第二条命令中的xxxxx后执行下一条</span><br><span class="line"></span><br><span class="line">bcdedit /set &#123;xxxxx&#125; hypervisorlaunchtype off</span><br></pre></td></tr></table></figure>
+
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
     
-      <h3 class="timeline-subtitle">2019</h3>
+  </div>
+</aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/windows/"><i class="fa fa-tags"></i>windows</a>
+     
+      <a href="/tags/%E5%B7%A5%E5%85%B7/"><i class="fa fa-tags"></i>工具</a>
     
-    <div class="timeline-item">
-      <time>2019-11-26</time>
-      <a target="_self" href="/2019/11/26/hello-world/">Hello World</a>
     </div>
   
 </div>
+
     </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
     
     <div class="site-footer-wrapper">
   <footer class="site-footer">
@@ -283,16 +329,16 @@
     <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
+    <a href="/2019/12/13/spring-securityty%E8%AF%A6%E8%A7%A3/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
   <div class="bottom-bar-right">
-    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false" id="site-toc-show-btn">
+    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="true" id="site-toc-show-btn">
       <i class="fa fa-bars"></i>
     </a>
     
-      <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
+      <a href="#site-comment" data-enable="true">
         <i class="fa fa-commenting"></i>
       </a>
     
