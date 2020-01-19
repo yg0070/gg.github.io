@@ -203,7 +203,7 @@
 <p><a href="https://docs.microsoft.com/zh-cn/windows/wsl/about" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/wsl/about</a> </p>
 </blockquote>
 <h3 id="1-2-配置Docker-for-Windows"><a href="#1-2-配置Docker-for-Windows" class="headerlink" title="1.2 配置Docker for Windows"></a>1.2 配置Docker for Windows</h3><p>在<code>Docker</code>设置中需要开启2375端口，以便守护程序在TCP端点上进行侦听。</p>
-<p><img src="%5Cimages%5Cimage-20200119091957499.png" alt="image-20200119091957499"></p>
+<p><img src="https://yg0070.github.io/images/image-20200119091957499.png" alt="image-20200119091957499"></p>
 <h3 id="1-3-配置WSL"><a href="#1-3-配置WSL" class="headerlink" title="1.3 配置WSL"></a>1.3 配置WSL</h3><p>我们需要在<code>WSL</code>上安装<code>Docker</code>客户端</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install docker.io</span><br></pre></td></tr></table></figure>
 
@@ -211,7 +211,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export DOCKER_HOST=tcp:<span class="comment">//127.0.0.1:2375</span></span><br></pre></td></tr></table></figure>
 
 <p>现在就可正常使用<code>docker</code></p>
-<p><img src="%5Cimages%5Cimage-20200117154824548.png" alt="image-20200117154824548"></p>
+<p><img src="https://yg0070.github.io/images/image-20200117154824548.png" alt="image-20200117154824548"></p>
 <p>但是改环境变量只会持续到会话结束，每次打开bash都需要重新设置</p>
 <p>因此您需要在主目录中的一个名为<code>.bash_profile</code>或者 <code>.bashrc</code>的文件中设置该变量 </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bashrc</span><br></pre></td></tr></table></figure>
@@ -221,8 +221,8 @@
 
 
 
-<p><img src="%5Cimages%5Cimage-20200117154852152.png" alt="image-20200117154852152"></p>
-<p><img src="%5Cimages%5Cimage-20200117154940820.png" alt="image-20200117154940820"></p>
+<p><img src="https://yg0070.github.io/images/image-20200117154852152.png" alt="image-20200117154852152"></p>
+<p><img src="https://yg0070.github.io/images/image-20200117154940820.png" alt="image-20200117154940820"></p>
 <p>保存后重启bash执行docker祥光命令可以照常执行</p>
 <p>第一种方式需要开启<code>hyper</code>，而<code>hyper</code>与<code>vm</code>虚拟机只能启动一个，然而又有需要使用<code>vm</code>的需要，这是就不能使用<code>docker for windows</code>，下面介绍在<code>vm</code>中安装<code>docker</code>来实现。</p>
 <blockquote>
@@ -236,25 +236,25 @@
 <p>打开<code>systemd</code>的<code>docker</code>服务配置文件，在<code>ExecStart</code>中加入以下配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock</span><br></pre></td></tr></table></figure>
 
-<p><img src="%5Cimages%5Cimage-20200119093742859.png" alt="image-20200119093742859"></p>
+<p><img src="https://yg0070.github.io/images/image-20200119093742859.png" alt="image-20200119093742859"></p>
 <p>修改后保存，刷新配置，重启docker服务</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload 	<span class="comment">//1.加载docker守护进程</span></span><br><span class="line">systemctl restart docker 	<span class="comment">//2.重启docker服务</span></span><br></pre></td></tr></table></figure>
 
 <p>查看已开启的<code>tcp</code>端口中是否有2395，有的话则证明已配置成功。</p>
-<p><img src="%5Cimages%5Cimage-20200119094948710.png" alt="image-20200119094948710"></p>
+<p><img src="https://yg0070.github.io/images/image-20200119094948710.png" alt="image-20200119094948710"></p>
 <p>这是<code>docker</code>服务端的配置就完成了，如果没有使用 <code>systemd</code> 工具，自行百度实现方式吧。</p>
 <h3 id="2-2-配置WSL"><a href="#2-2-配置WSL" class="headerlink" title="2.2 配置WSL"></a>2.2 配置WSL</h3><p>此步骤与 1.2 相同，ip地址改为虚拟机ip地址，也可设置成固态ip，然后映射到本机端口，依然使用127.0.0.1</p>
 <h3 id="2-3-windows环境变量"><a href="#2-3-windows环境变量" class="headerlink" title="2.3 windows环境变量"></a>2.3 windows环境变量</h3><p>如果不想使用<code>linux</code>子系统也可安装<code>docker for windwos</code>, 但不起服务，只是用<code>Docker CLI</code>，在系统环境变量中添加：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">变量名：DOCKER_HOST</span><br><span class="line">变量值：tcp:<span class="comment">//127.0.0.1:2375	//ip根据实际修改，参考2.2</span></span><br></pre></td></tr></table></figure>
 
 <p>这中方法可实现同样的效果，不过不知是否与<code>linux</code>下的存在差异，可自行决定用哪种方式。</p>
-<p><img src="%5Cimages%5Cimage-20200119095810699.png" alt="image-20200119095810699"></p>
+<p><img src="https://yg0070.github.io/images/image-20200119095810699.png" alt="image-20200119095810699"></p>
 <h3 id="3-配置cmder"><a href="#3-配置cmder" class="headerlink" title="3. 配置cmder"></a>3. 配置cmder</h3><p>另外，推荐一款<code>windows</code>下代替<code>cmd</code>的工具<code>cmder</code>，毕竟<code>cmd</code>真的很难用，参考下面的文章。</p>
 <blockquote>
 <p><a href="https://www.jianshu.com/p/5b7c985240a7" target="_blank" rel="noopener">https://www.jianshu.com/p/5b7c985240a7</a> </p>
 </blockquote>
 <p>可将其设置为启动<code>bash</code>，自动进入<code>linux</code>子系统。</p>
-<p><img src="%5Cimages%5Cimage-20200119100748706.png" alt="image-20200119100748706"></p>
+<p><img src="https://yg0070.github.io/images/image-20200119100748706.png" alt="image-20200119100748706"></p>
 
   </article>
   <aside class="table-content" id="site-toc">
