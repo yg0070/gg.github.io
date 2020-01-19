@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="yg0070" />
+  
+  
+  <title>Windows上使用linux子系统(WSL)使用Docker | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="windows,windows,工具,WLS," />
+  
+
+  
+  <meta name="description" content="yg0070的小破站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"PBIPQ8JDGCb0jEqV56P3KdQ2-gzGzoHsz","appkey":"8mHyXT6oY0jVMCibniA0ibNV","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2019-12-15",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "yg0070",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">Yg0070</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 我最大的遗憾,就是你的遗憾与我无关</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" target="_blank" rel="noopener" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" target="_blank" rel="noopener" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2020-01-06
+    </span>
+    
+      <span>
+        | <a href="/categories/windows/"><i class="fa fa-bookmark"></i>windows</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Windows上使用linux子系统(WSL)使用Docker
+  </h1>
+  
+  <article class="passage-article">
+    <p>本文介绍在<code>Windows</code>下如何使用<code>Docker</code>的两种方式</p>
+<p><code>windows Linux子系统 + WLS + Docker for windows</code></p>
+<p><code>windows Linux子系统 + WSL + VM虚拟机</code></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在之前使用<code>Docker</code>时一直使用的<code>Docker for windows</code>，然而windows版很多命令并不支持；之后<code>Windows 10</code>出<code>linux</code>子系统后本想终于可以完美解决，可真实测试后发现，现在的版本没有办法在子系统中使用<code>Docker</code> ，虽然可以安装成功但镜像无法启动。之后就想到可否在<code>windows</code>上安装<code>Docker for windows</code>，子系统使用<code>Docker CLI</code>来调用<code>Windows</code>上的<code>Docker</code>服务，经过验证发现可行。但需要开启hyper虚拟化，并且无法再使用vm虚拟机，所以本人最后用了另外一种方式，在虚拟机中安装<code>Docker</code>。</p>
+<blockquote>
+<p><code>windows Linux子系统 + WLS + Docker for windows</code></p>
+</blockquote>
+<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>打开<code>Hyper-V</code>，并打开cpu虚拟化功能</p>
+<p>安装<code>Linux</code>子系统(<code>WSL</code>)</p>
+<p>安装<code>Docker for Windows</code></p>
+<h3 id="1-1-安装Linux子系统-WSL"><a href="#1-1-安装Linux子系统-WSL" class="headerlink" title="1.1 安装Linux子系统(WSL)"></a>1.1 安装Linux子系统(WSL)</h3><p>现在<code>Windows app store</code>上已经有很多<code>Linux</code>子系统提供安装，像<code>Ubuntu</code>，<code>opsnsuse</code>，<code>Centos</code>等，在安装前需要在<code>程序与功能</code>中打开适用于<code>Linux的Windows子系统</code>功能。</p>
+<p>如果是企业版<code>windows</code>或者<code>server</code>版没有<code>windows app store</code>，需要查看是否支持子系统功能，如果支持可以手动安装子系统，安装与下载方法参考微软官方文档</p>
+<blockquote>
+<p><a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-manual" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/wsl/install-manual</a> </p>
+</blockquote>
+<p>安装完成后在cmd中输入bash，进入子系统，或者ctrl+r，bash进入</p>
+<p>如果想深入了解WSL可查看微软官方文档</p>
+<blockquote>
+<p><a href="https://docs.microsoft.com/zh-cn/windows/wsl/about" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/wsl/about</a> </p>
+</blockquote>
+<h3 id="1-2-配置Docker-for-Windows"><a href="#1-2-配置Docker-for-Windows" class="headerlink" title="1.2 配置Docker for Windows"></a>1.2 配置Docker for Windows</h3><p>在<code>Docker</code>设置中需要开启2375端口，以便守护程序在TCP端点上进行侦听。</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200119091957499.png" alt="image-20200119091957499"></p>
+<h3 id="1-3-配置WSL"><a href="#1-3-配置WSL" class="headerlink" title="1.3 配置WSL"></a>1.3 配置WSL</h3><p>我们需要在<code>WSL</code>上安装<code>Docker</code>客户端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install docker.io</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后配置<code>docker_host</code>连接向<code>docker for windows</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export DOCKER_HOST=tcp:<span class="comment">//127.0.0.1:2375</span></span><br></pre></td></tr></table></figure>
+
+<p>现在就可正常使用<code>docker</code></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200117154824548.png" alt="image-20200117154824548"></p>
+<p>但是改环境变量只会持续到会话结束，每次打开bash都需要重新设置</p>
+<p>因此您需要在主目录中的一个名为<code>.bash_profile</code>或者 <code>.bashrc</code>的文件中设置该变量 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>在文件末尾添加</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export DOCKER_HOST=tcp:<span class="comment">//127.0.0.1:2375		//ip根据实际修改，参考2.2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200117154852152.png" alt="image-20200117154852152"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200117154940820.png" alt="image-20200117154940820"></p>
+<p>保存后重启bash执行docker祥光命令可以照常执行</p>
+<p>第一种方式需要开启<code>hyper</code>，而<code>hyper</code>与<code>vm</code>虚拟机只能启动一个，然而又有需要使用<code>vm</code>的需要，这是就不能使用<code>docker for windows</code>，下面介绍在<code>vm</code>中安装<code>docker</code>来实现。</p>
+<blockquote>
+<p><code>windows Linux子系统 + WSL + VM虚拟机</code></p>
+</blockquote>
+<h3 id="2-1-vm中安装linux版docker，配置docker"><a href="#2-1-vm中安装linux版docker，配置docker" class="headerlink" title="2.1 vm中安装linux版docker，配置docker"></a>2.1 vm中安装linux版docker，配置docker</h3><p><code>vm</code>中安装<code>linux</code>就不详述了，自行百度，安装<code>docker</code>也是，都很简单，下面介绍下安装完<code>docker</code>后需要配置哪些东西。</p>
+<p>与 1.2 相同，也是需要开启2375端口，对外提供<code>api</code>调用来实现。</p>
+<p>自行根据自己<code>linux</code>系统及版本修改以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/lib/systemd/system/docker.service</span><br></pre></td></tr></table></figure>
+
+<p>打开<code>systemd</code>的<code>docker</code>服务配置文件，在<code>ExecStart</code>中加入以下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200119093742859.png" alt="image-20200119093742859"></p>
+<p>修改后保存，刷新配置，重启docker服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload 	<span class="comment">//1.加载docker守护进程</span></span><br><span class="line">systemctl restart docker 	<span class="comment">//2.重启docker服务</span></span><br></pre></td></tr></table></figure>
+
+<p>查看已开启的<code>tcp</code>端口中是否有2395，有的话则证明已配置成功。</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200119094948710.png" alt="image-20200119094948710"></p>
+<p>这是<code>docker</code>服务端的配置就完成了，如果没有使用 <code>systemd</code> 工具，自行百度实现方式吧。</p>
+<h3 id="2-2-配置WSL"><a href="#2-2-配置WSL" class="headerlink" title="2.2 配置WSL"></a>2.2 配置WSL</h3><p>此步骤与 1.2 相同，ip地址改为虚拟机ip地址，也可设置成固态ip，然后映射到本机端口，依然使用127.0.0.1</p>
+<h3 id="2-3-windows环境变量"><a href="#2-3-windows环境变量" class="headerlink" title="2.3 windows环境变量"></a>2.3 windows环境变量</h3><p>如果不想使用<code>linux</code>子系统也可安装<code>docker for windwos</code>, 但不起服务，只是用<code>Docker CLI</code>，在系统环境变量中添加：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">变量名：DOCKER_HOST</span><br><span class="line">变量值：tcp:<span class="comment">//127.0.0.1:2375	//ip根据实际修改，参考2.2</span></span><br></pre></td></tr></table></figure>
+
+<p>这中方法可实现同样的效果，不过不知是否与<code>linux</code>下的存在差异，可自行决定用哪种方式。</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200119095810699.png" alt="image-20200119095810699"></p>
+<h3 id="3-配置cmder"><a href="#3-配置cmder" class="headerlink" title="3. 配置cmder"></a>3. 配置cmder</h3><p>另外，推荐一款<code>windows</code>下代替<code>cmd</code>的工具<code>cmder</code>，毕竟<code>cmd</code>真的很难用，参考下面的文章。</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/5b7c985240a7" target="_blank" rel="noopener">https://www.jianshu.com/p/5b7c985240a7</a> </p>
+</blockquote>
+<p>可将其设置为启动<code>bash</code>，自动进入<code>linux</code>子系统。</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200119100748706.png" alt="image-20200119100748706"></p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前提"><span class="toc-text">前提</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-安装Linux子系统-WSL"><span class="toc-text">1.1 安装Linux子系统(WSL)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-配置Docker-for-Windows"><span class="toc-text">1.2 配置Docker for Windows</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-配置WSL"><span class="toc-text">1.3 配置WSL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-vm中安装linux版docker，配置docker"><span class="toc-text">2.1 vm中安装linux版docker，配置docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-配置WSL"><span class="toc-text">2.2 配置WSL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-windows环境变量"><span class="toc-text">2.3 windows环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-配置cmder"><span class="toc-text">3. 配置cmder</span></a></li></ol></li></ol>
+  </div>
+</aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/windows/"><i class="fa fa-tags"></i>windows</a>
+     
+      <a href="/tags/%E5%B7%A5%E5%85%B7/"><i class="fa fa-tags"></i>工具</a>
+     
+      <a href="/tags/WLS/"><i class="fa fa-tags"></i>WLS</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ifeve.com/" target="_blank">并发编程网</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://juejin.im/user/5b91fcf06fb9a05d3c7fd4a5" target="_blank">掘金</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://segmentfault.com/" target="_blank">思否</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: yg0070@outlook.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" target="_blank" rel="noopener" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat222.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay222.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2019/12/25/docker/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" target="_blank" rel="noopener" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" target="_blank" rel="noopener" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" target="_blank" rel="noopener" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+  <script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '');
+  </script>
+
+
+
+  <script async>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+  </script>
+
+
+
+
+    
+  </body>
+</html>
