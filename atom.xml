@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>hojun</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="/"/>
+  <updated>2020-04-10T10:15:46.172Z</updated>
+  <id>/</id>
+  
+  <author>
+    <name>hojun</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring Session 跨域时 Cookie SameSite 问题</title>
+    <link href="/2020/04/10/Spring%20Session%20%E8%B7%A8%E5%9F%9F%E6%97%B6%20Cookie%20SameSite%20%E9%97%AE%E9%A2%98/"/>
+    <id>/2020/04/10/Spring Session 跨域时 Cookie SameSite 问题/</id>
+    <published>2020-04-10T05:51:23.000Z</published>
+    <updated>2020-04-10T10:15:46.172Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;
+        
+      
+    
+    </summary>
+    
+      <category term="spring session" scheme="/categories/spring-session/"/>
+    
+    
+      <category term="spring" scheme="/tags/spring/"/>
+    
+      <category term="spring session" scheme="/tags/spring-session/"/>
+    
+      <category term="代码" scheme="/tags/%E4%BB%A3%E7%A0%81/"/>
+    
+      <category term="框架" scheme="/tags/%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Windows上使用linux子系统(WSL)使用Docker</title>
+    <link href="/2020/01/06/Windows%E4%B8%8A%E4%BD%BF%E7%94%A8linux%E5%AD%90%E7%B3%BB%E7%BB%9F(WSL)%E4%BD%BF%E7%94%A8Docker/"/>
+    <id>/2020/01/06/Windows上使用linux子系统(WSL)使用Docker/</id>
+    <published>2020-01-06T02:24:06.000Z</published>
+    <updated>2020-04-09T04:06:20.085Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;本文介绍在&lt;code&gt;Windows&lt;/code&gt;下如何使用&lt;code&gt;Docker&lt;/code&gt;的两种方式&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;windows Linux子系统 + WLS + Docker for
+        
+      
+    
+    </summary>
+    
+      <category term="windows" scheme="/categories/windows/"/>
+    
+    
+      <category term="windows" scheme="/tags/windows/"/>
+    
+      <category term="工具" scheme="/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="WLS" scheme="/tags/WLS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="/2019/12/25/docker/"/>
+    <id>/2019/12/25/docker/</id>
+    <published>2019-12-25T01:35:06.070Z</published>
+    <updated>2019-12-25T01:35:06.070Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt; &lt;a href=&quot;https://www.cnblogs.com/hongdada/p/11512901.html&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>windows 开机选择是否开启hyper</title>
+    <link href="/2019/12/24/windows-%E5%BC%80%E6%9C%BA%E9%80%89%E6%8B%A9%E6%98%AF%E5%90%A6%E5%BC%80%E5%90%AFhyper/"/>
+    <id>/2019/12/24/windows-开机选择是否开启hyper/</id>
+    <published>2019-12-24T03:48:20.000Z</published>
+    <updated>2019-12-24T03:52:30.934Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Windows 10中hyper虚拟化与VMware无法共存, 不得已采用一种折中方法, 相当于双系统, 但不需要重新装系统, 只需要配置一下就可以, 然后在开机的时候选择是否需要用hyper&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bcdedit /copy {default}
+        
+      
+    
+    </summary>
+    
+      <category term="windows" scheme="/categories/windows/"/>
+    
+    
+      <category term="windows" scheme="/tags/windows/"/>
+    
+      <category term="工具" scheme="/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>spring securityty详解</title>
+    <link href="/2019/12/13/spring-securityty%E8%AF%A6%E8%A7%A3/"/>
+    <id>/2019/12/13/spring-securityty详解/</id>
+    <published>2019-12-13T07:59:15.000Z</published>
+    <updated>2020-04-17T01:08:32.049Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h5 id=&quot;1-security与oauth2的关系&quot;&gt;&lt;a href=&quot;#1-security与oauth2的关系&quot; class=&quot;headerlink&quot; title=&quot;1. security与oauth2的关系&quot;&gt;&lt;/a&gt;1.
+        
+      
+    
+    </summary>
+    
+      <category term="spring" scheme="/categories/spring/"/>
+    
+    
+      <category term="spring" scheme="/tags/spring/"/>
+    
+      <category term="代码" scheme="/tags/%E4%BB%A3%E7%A0%81/"/>
+    
+      <category term="框架" scheme="/tags/%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="spring security" scheme="/tags/spring-security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo命令</title>
+    <link href="/2019/12/13/hexo%E5%91%BD%E4%BB%A4/"/>
+    <id>/2019/12/13/hexo命令/</id>
+    <published>2019-12-13T07:41:28.000Z</published>
+    <updated>2019-12-13T07:57:07.096Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h5 id=&quot;1-创建文章&quot;&gt;&lt;a href=&quot;#1-创建文章&quot; class=&quot;headerlink&quot; title=&quot;1.创建文章&quot;&gt;&lt;/a&gt;1.创建文章&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;hexo new [layout]
+        
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="hexo" scheme="/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git</title>
+    <link href="/2019/12/05/git/"/>
+    <id>/2019/12/05/git/</id>
+    <published>2019-12-05T03:23:40.000Z</published>
+    <updated>2019-12-05T10:42:07.970Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;git提交后退回&quot;&gt;&lt;a href=&quot;#git提交后退回&quot; class=&quot;headerlink&quot; title=&quot;git提交后退回&quot;&gt;&lt;/a&gt;git提交后退回&lt;/h2&gt;&lt;h4 id=&quot;已commit-未push&quot;&gt;&lt;a href=&quot;#已commit-未push&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="代码" scheme="/tags/%E4%BB%A3%E7%A0%81/"/>
+    
+      <category term="git" scheme="/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2019/11/26/hello-world/"/>
+    <id>/2019/11/26/hello-world/</id>
+    <published>2019-11-26T01:50:16.285Z</published>
+    <updated>2019-11-26T01:50:16.285Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo-Theme-Sakura</title>
+    <link href="/2018/12/12/Hexo-Theme-Sakura/"/>
+    <id>/2018/12/12/Hexo-Theme-Sakura/</id>
+    <published>2018-12-12T14:16:01.000Z</published>
+    <updated>2020-03-15T19:41:30.000Z</updated>
+    
+    <summary type="html">
+    
+      hexo-sakura主题使用教程
+    
+    </summary>
+    
+      <category term="技术" scheme="/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="web" scheme="/tags/web/"/>
+    
+      <category term="悦读" scheme="/tags/%E6%82%A6%E8%AF%BB/"/>
+    
+  </entry>
+  
+</feed>
