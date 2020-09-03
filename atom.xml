@@ -82,11 +82,11 @@
       <category term="spring" scheme="/categories/spring/"/>
     
     
-      <category term="代码" scheme="/tags/%E4%BB%A3%E7%A0%81/"/>
-    
       <category term="spring" scheme="/tags/spring/"/>
     
       <category term="spring session" scheme="/tags/spring-session/"/>
+    
+      <category term="代码" scheme="/tags/%E4%BB%A3%E7%A0%81/"/>
     
       <category term="框架" scheme="/tags/%E6%A1%86%E6%9E%B6/"/>
     
@@ -174,9 +174,9 @@
       <category term="spring" scheme="/categories/spring/"/>
     
     
-      <category term="代码" scheme="/tags/%E4%BB%A3%E7%A0%81/"/>
-    
       <category term="spring" scheme="/tags/spring/"/>
+    
+      <category term="代码" scheme="/tags/%E4%BB%A3%E7%A0%81/"/>
     
       <category term="框架" scheme="/tags/%E6%A1%86%E6%9E%B6/"/>
     
@@ -232,9 +232,9 @@
       <category term="工具" scheme="/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="git" scheme="/tags/git/"/>
-    
       <category term="代码" scheme="/tags/%E4%BB%A3%E7%A0%81/"/>
+    
+      <category term="git" scheme="/tags/git/"/>
     
   </entry>
   
